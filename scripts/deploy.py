@@ -17,10 +17,11 @@ def deploy_fund_me():
         deploy_mocks()
         price_feed_address = MockV3Aggregator[-1].address
 
-    fund_me = FundMe.deploy(
-        price_feed_address,
-        {"from": account},
+    fund_me = FundMe.deploy( # deploy函数用于deploy合约
+        price_feed_address, # constructor需要导入pricefeed地址
+        {"from": account}, # deploy需要部署者地址
         publish_source=config["networks"][network.show_active()].get("verify"),
+        # publishsource true的话进行verify验证, 可以在etherscan直接与合约交互
     )
 
     print(f"contract deployed to {fund_me.address}")

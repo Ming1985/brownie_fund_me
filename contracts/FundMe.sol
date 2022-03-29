@@ -27,6 +27,7 @@ contract FundMe {
         owner = msg.sender;
     }
 
+    // send fund to the contract
     function fund() public payable {
         // 18 digit number to be compared with donated amount
         uint256 minimumUSD = 50 * 10**18;
@@ -45,6 +46,7 @@ contract FundMe {
         return priceFeed.version();
     }
 
+    // return price of eth/usd for calculation of minimum fee
     function getPrice() public view returns (uint256) {
         (, int256 answer, , , ) = priceFeed.latestRoundData();
         // ETH/USD rate in 18 digit
@@ -63,8 +65,8 @@ contract FundMe {
         return ethAmountInUsd;
     }
 
+    // minimum usd needed to fund the contract
     function getEntranceFee() public view returns (uint256) {
-        // minimumUSD
         uint256 minimumUSD = 50 * 10**18;
         uint256 price = getPrice();
         uint256 precision = 1 * 10**18;
@@ -75,7 +77,6 @@ contract FundMe {
     modifier onlyOwner() {
         //is the message sender owner of the contract?
         require(msg.sender == owner);
-
         _;
     }
 

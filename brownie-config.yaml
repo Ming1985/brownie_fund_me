@@ -4,11 +4,14 @@ dependencies:
 compiler:
   solc:
     remappings:
+      # 缩写为chainlink 并在合约文件的import中使用. 用于import github上的代码
       - '@chainlink=smartcontractkit/chainlink-brownie-contracts@1.1.1'
-dotenv: .env
-networks:
+dotenv: .env #环境变量文件
+networks: #用于存储网络的额外信息/变量. 
   mainnet-fork:
+    # 网络的eth/usd price feed地址
     eth_usd_price_feed: '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419'
+    # 在该网络上部署合约是否要提交到etherscan进行合约审查
     verify: False
   mainnet-fork-dev:
     eth_usd_price_feed: '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419'
@@ -20,5 +23,5 @@ networks:
     verify: False 
   development:
     verify: False
-wallets:
+wallets:  #钱包 
   from_key: ${PRIVATE_KEY}
